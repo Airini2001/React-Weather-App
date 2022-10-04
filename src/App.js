@@ -8,20 +8,11 @@ export default function App() {
   return (
     <div className='App'>
       <div className='container'>
-        <Weather defaultCity='Lisbon' />
+        <Weather defaultCity='New York' />
         <footer>
           This project was created by{" "}
-          <a
-           
-            target='_blank'
-            rel='noopener noreferrer'>
-            Viktoriia Prominska
-          </a>{" "}
-          and is{" "}
-          <a
-            href=''
-            target='_blank'
-            rel='noopener noreferrer'>
+          <a target='_blank' rel='noopener noreferrer'></a> and is{" "}
+          <a href='' target='_blank' rel='noopener noreferrer'>
             open-source on GitHub
           </a>
         </footer>
