@@ -26,7 +26,7 @@ export default function App() {
           >
             open-sourced on GitHub
           </a>
-          and{" "}
+          {" "} and {" "}
           <a
             href="https://fanciful-truffle-717708.netlify.app"
             target="_blank"
