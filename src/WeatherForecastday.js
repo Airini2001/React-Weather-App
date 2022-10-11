@@ -1,50 +1,31 @@
-import React, { useState, useEffect } from "react";
-import "./WeatherForecast.css";
-import axios from "axios";
-import WeatherForecastday from "./WeatherForecastday";
+import React from "react";
+import WeatherIcon from "./WeatherIcon";
 
-export default function WeatherForecast(props) {
-  let [loaded, setLoaded] = useState(false);
-  let [forecast, setForecast] = useState(null);
-
-  useEffect(() => {
-    setLoaded(false);
-  }, [props.coordinates]);
-
-  function handleResponse(response) {
-    setForecast(response.data.daily);
-    setLoaded(true);
+export default function WeatherForecastday(props) {
+  function MaxTemp() {
+    let temperature = Math.round(props.data.temp.max);
+    return `${temperature}°`;
   }
-  function load() {
-    let apiKey = "765b9f49bb5f837e1b35ec83b522ea28";
-    let longitude = props.coordinates.lon;
-    let latitude = props.coordinates.lat;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-
-    axios.get(apiUrl).then(handleResponse);
+  function MinTemp() {
+    let temperature = Math.round(props.data.temp.min);
+    return `${temperature}°`;
   }
-  
-  if (loaded) {
-    return (
-      <div className="WeatherForecast">
-        <div className="row">
-          {forecast.map(function (dailyForecast, index) {
-            if (index < 5) {
-              return (
-                <div className="col" key={index}>
-                  <WeatherForecastday data={dailyForecast} />
-                </div>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </div>
+
+  function day() {
+    let date = new Date(props.data.dt * 1000);
+    let day = date.getDate();
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    return days[day];
+  }
+
+  return (
+    <div>
+      <div className="WeatherForecast-day">{day()}</div>
+      <WeatherIcon code={props.data.weather[0].icon} size={36} />
+      <div className="WeatherForecast-temp">
+        <span className="WeatherForecast-temp-max">{MaxTemp()}</span>
+        <span className="WeatherForecast-temp-min">{MinTemp()}</span>
       </div>
-    );
-  } else {
-    load();
-
-    return null;
-  }
+    </div>
+  );
 }
